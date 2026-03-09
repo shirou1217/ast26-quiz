@@ -16,10 +16,11 @@ options:
     explanation: |
       在t0時，會發現age與wear的數值對稱，會導致Score後面的分數都一樣，所以只差在u，所以選u最大者，即Block A作為victim，並且使Block A的wear=2,age=0。過了age=2的時間間隔後，Block A的age開始計算，u會變成0.8。在t0+5時，Block A，u=0.8，age=3，wear=2；Block B，u=0.7，age=7，wear=2；Block C，u=0.5，age=8，wear=3，並且w1=0.3,w2=0.35,w3=0.35。
       詳細算出Score_A=0.3*0.8+0.35*3/8+0.35*(1-2/3)=0.4879；Score_B=0.3*0.7+0.35*7/8+0.35*(1-2/3)=0.6329；Score_C=0.3*0.5+0.35*8/8+0.35*(1-3/3)=0.5，所以選Block B作為victim。
+  - text: "A,C"
     explanation: |
       在t0時，會發現age與wear的數值對稱，會導致Score後面的分數都一樣，所以只差在u，所以選u最大者，即Block A作為victim，並且使Block A的wear=2,age=0。過了age=2的時間間隔後，Block A的age開始計算，u會變成0.8。在t0+5時，Block A，u=0.8，age=3，wear=2；Block B，u=0.7，age=7，wear=2；Block C，u=0.5，age=8，wear=3，並且w1=0.3,w2=0.35,w3=0.35。
       詳細算出Score_A=0.3*0.8+0.35*3/8+0.35*(1-2/3)=0.4879；Score_B=0.3*0.7+0.35*7/8+0.35*(1-2/3)=0.6329；Score_C=0.3*0.5+0.35*8/8+0.35*(1-3/3)=0.5，所以選Block B作為victim。
-  - text: "B,A"
+  - text: "B,C"
     explanation: |
       在t0時，會發現age與wear的數值對稱，會導致Score後面的分數都一樣，所以只差在u，所以選u最大者，即Block A作為victim，並且使Block A的wear=2,age=0。過了age=2的時間間隔後，Block A的age開始計算，u會變成0.8。在t0+5時，Block A，u=0.8，age=3，wear=2；Block B，u=0.7，age=7，wear=2；Block C，u=0.5，age=8，wear=3，並且w1=0.3,w2=0.35,w3=0.35。
       詳細算出Score_A=0.3*0.8+0.35*3/8+0.35*(1-2/3)=0.4879；Score_B=0.3*0.7+0.35*7/8+0.35*(1-2/3)=0.6329；Score_C=0.3*0.5+0.35*8/8+0.35*(1-3/3)=0.5，所以選Block B作為victim。
