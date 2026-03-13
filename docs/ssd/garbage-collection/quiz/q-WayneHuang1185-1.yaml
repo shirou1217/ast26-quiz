@@ -16,12 +16,12 @@ options:
       而日誌區是純熱資料，寫入頻率極高，適合使用greedy策略來快速回收空間，同時搭配dynamic wear leveling來均衡磨損。
   - text: (cost-benefit, static wear leveling),(cost-benefit, static wear leveling)
     explanation: |
-      因為日誌區的全為熱資料，資料更新頻率很高，所以平均每個block中資料的age都會很小，此時使用greedy策略能最大化GC效率。
+      因為日誌區全為熱資料，資料更新頻率很高，所以平均每個block中資料的age都會很小，此時使用greedy策略能最大化GC效率。
       而在日誌區使用static wear leveling則沒有什麼必要，因為日誌區幾乎沒有長期靜態資料，因此通常不需要去搬移冷資料來平衡磨損。
   - text: (cost-benefit, dynamic wear leveling),(greedy, dynamic wear leveling)
     explanation: |
-      書籍記錄區包含冷資料和熱資料，若發生冷資料長期佔據某些擦寫次數低的block，dynamic wear leveling則無發處理此種情況發生，導致無法均勻的磨損。
+      書籍記錄區包含冷資料和熱資料，若發生冷資料長期佔據某些擦寫次數低的block，dynamic wear leveling則無法處理此種情況發生，導致無法均勻的磨損。
   - text: (cost-benefit, dynamic wear leveling),(cost-benefit, dynamic wear leveling)
     explanation: |
-      因為日誌區的全為熱資料，資料更新頻率很高，所以平均每個block中資料的age都會很小，此時使用greedy策略能最大化GC效率。
-      書籍記錄區包含冷資料和熱資料，若發生冷資料長期佔據某些擦寫次數低的block，dynamic wear leveling則無發處理此種情況發生，導致無法均勻的磨損。
+      因為日誌區全為熱資料，資料更新頻率很高，所以平均每個block中資料的age都會很小，此時使用greedy策略能最大化GC效率。
+      書籍記錄區包含冷資料和熱資料，若發生冷資料長期佔據某些擦寫次數低的block，dynamic wear leveling則無法處理此種情況發生，導致無法均勻的磨損。
