@@ -24,13 +24,14 @@ options:
   - text: "因為 INSERT 需要同時在 heap area 放資料與在 slot array 新增 slot，如果 slot array 已經沒有連續空間，即使 heap area 有空間也無法插入。"
     explanation: |
       slot Array 位於頁面頂端，透過 pd_lower 指標線性增長，本身不存在碎片化或不連續的問題。
-      此外，即使系統能重用 unused slot，INSERT 失敗的原因也不在 slot array，而在於存放資料紀錄的 Heap Area 存在大量不連續孔洞（Holes），導致無法提供足夠長的連續空間來容納 20 bytes 的資料。
+      此外，即使系統能重用 unused slot，INSERT 失敗的原因也不在 slot array，而在於 DELETE 留下的 holes 散落在 heap area 內部，但 INSERT 能用的空間是 pd_lower 和 pd_upper 之間的連續間隙。
+      所以即使 holes 的總量遠大於 20 bytes， pd_lower 和 pd_upper 之間的間隙太小就是放不下。
 
   - text: "因為 heap area 的 free space 是 fragmented（不連續），即使總空間足夠，也可能沒有一段連續空間同時滿足 record 存放需求，因此需要 compaction 才能成功 INSERT。"
     correct: true
     explanation: |
       slotted page 的新 record 是放在 pd_upper 的位置往前長的，所以 INSERT 能用的空間是 pd_lower 和 pd_upper 之間的連續間隙。
-      DELETE 留下的 holes 散落在 heap area 內部，並不在這個間隙中，所以即使 holes 的總量遠大於 20 bytes，pd_lower 和 pd_upper 之間的間隙太小就是放不下。
+      DELETE 留下的 holes 散落在 heap area 內部，並不在這個間隙中，所以即使 holes 的總量遠大於 20 bytes， pd_lower 和 pd_upper 之間的間隙太小就是放不下。
       Compaction 把存活的 records 壓緊後，消除中間的 holes， pd_upper 才會往後退，騰出大塊連續空間。才能支援後續 INSERT。
 
   - text: "因為 slot_id 必須保持連續（0,1,2,...），當中間存在 unused slot 時，系統禁止插入新 record 以避免破壞 slot ordering。"
