@@ -26,13 +26,5 @@ options:
   - text: "Write-Ahead Log（WAL）透過 append-only 的 sequential write，確保在 crash 後可以重建 memtable"
     correct: true
     explanation: |
-      WAL 是 LSM-Tree 中負責 durability 的核心機制。
-
-      每一筆寫入在進入 memtable 的同時，也會被 append 到 WAL（disk 上的 sequential log）。
-      即使系統在 memtable 尚未 flush 前 crash，這些操作仍然存在於 WAL 中。
-
-      系統重啟後，可以透過 replay WAL：
-      - 重新執行所有尚未 flush 的操作
-      - 重建 memtable 的狀態
-
-      因此 WAL 才是確保 crash recovery 的關鍵機制，而不是 memtable 或 SSTable。
+      WAL 是 LSM-Tree 負責 durability 的核心機制。每筆寫入在進入 memtable 的同時也會 append 到 WAL。
+      系統 crash 後，重啟時 replay WAL 即可重建尚未 flush 的 memtable 狀態。
